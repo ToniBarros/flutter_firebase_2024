@@ -18,3 +18,12 @@ class MyApp extends StatelessWidget {
       );
  }
 }
+
+/*
+1)Tenir el node.js instal·lat
+2)npm install -g firebase-tools
+3)firebase login
+cambiar el nombre del archivo ps1
+Si tornem a firebase login, ens dirà la compta amb la que estem connectats
+si vulguem canviar de compta, fem firebase logout
+*/
