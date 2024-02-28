@@ -2,21 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_2024/components/boto_auth.dart';
 import 'package:flutter_firebase_2024/components/textfield_auth.dart';
 
-class PaginaLogin extends StatefulWidget {
-    PaginaLogin({super.key});
-
+class PaginaRegistre extends StatefulWidget {
+  PaginaRegistre({super.key});
   final controllerEmail = TextEditingController();
   final TextEditingController controllerPassword = TextEditingController();
-
+  final TextEditingController controllerConfirmPassword = TextEditingController();
   @override
-  State<PaginaLogin> createState() => _MyWidgetState();
+  State<PaginaRegistre> createState() => _PaginaRegistreState();
 }
 
-class _MyWidgetState extends State<PaginaLogin> {
-
-    void ferLogin() {
+class _PaginaRegistreState extends State<PaginaRegistre> {
+    void Registrarse() {
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +61,7 @@ class _MyWidgetState extends State<PaginaLogin> {
                           Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              "Fes login",
+                              "Registrat",
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Color.fromARGB(255, 255, 240, 218),
@@ -98,10 +96,6 @@ class _MyWidgetState extends State<PaginaLogin> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text("No ets membre?"),
-                          const SizedBox(
-                            width: 5,
-                          ),
                           GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(context, '/registre');
@@ -118,8 +112,8 @@ class _MyWidgetState extends State<PaginaLogin> {
                     SizedBox(
                       height: 10,),
                     //boto login
-                    BotoAuth(text: "login", 
-                    onTap: ferLogin,
+                    BotoAuth(text: "Registra't", 
+                    onTap: Registrarse,
                     ),
                   ],
                 ),
