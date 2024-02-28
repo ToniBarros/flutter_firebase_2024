@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "707315499256",
+    "project_id": "bdlogin-65583",
+    "storage_bucket": "bdlogin-65583.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707315499256:android:815f707baa2902fd333b0d",
+        "android_client_info": {
+          "package_name": "com.example.flutter_firebase_2024"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoMKNxGb10mu4zlzCX6nNdrzN6IJ7TGII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

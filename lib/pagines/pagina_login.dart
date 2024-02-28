@@ -3,16 +3,22 @@ import 'package:flutter_firebase_2024/components/boto_auth.dart';
 import 'package:flutter_firebase_2024/components/textfield_auth.dart';
 
 class PaginaLogin extends StatefulWidget {
+    PaginaLogin({super.key});
+
   final controllerEmail = TextEditingController();
   final TextEditingController controllerPassword = TextEditingController();
+  
 
-  PaginaLogin({Key? key}) : super(key: key);
 
   @override
   State<PaginaLogin> createState() => _MyWidgetState();
 }
 
 class _MyWidgetState extends State<PaginaLogin> {
+
+    void ferLogin() {
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,7 +121,9 @@ class _MyWidgetState extends State<PaginaLogin> {
                     SizedBox(
                       height: 10,),
                     //boto login
-                    BotoAuth(),
+                    BotoAuth(text: "login", 
+                    onTap: ferLogin,
+                    ),
                   ],
                 ),
               ),
