@@ -3,16 +3,21 @@ import 'package:flutter_firebase_2024/components/boto_auth.dart';
 import 'package:flutter_firebase_2024/components/textfield_auth.dart';
 
 class PaginaLogin extends StatefulWidget {
-    PaginaLogin({super.key});
+    PaginaLogin({super.key, required this.alFerClic});
+
+    final void Function() alFerClic;
 
   final controllerEmail = TextEditingController();
   final TextEditingController controllerPassword = TextEditingController();
+
+
 
   @override
   State<PaginaLogin> createState() => _MyWidgetState();
 }
 
 class _MyWidgetState extends State<PaginaLogin> {
+  
 
     void ferLogin() {
   }
@@ -103,13 +108,12 @@ class _MyWidgetState extends State<PaginaLogin> {
                             width: 5,
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/registre');
-                            },
+                            onTap: widget.alFerClic,
                             child: const Text("Registra't", style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.blue,
-                            ),),
+                            ),
+                            ),
                           ),
                           
                         ],

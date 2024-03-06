@@ -3,7 +3,9 @@ import 'package:flutter_firebase_2024/components/boto_auth.dart';
 import 'package:flutter_firebase_2024/components/textfield_auth.dart';
 
 class PaginaRegistre extends StatefulWidget {
-  PaginaRegistre({super.key});
+  PaginaRegistre({super.key, required this.alFerClic});
+      final void Function() alFerClic;
+
   final controllerEmail = TextEditingController();
   final TextEditingController controllerPassword = TextEditingController();
   final TextEditingController controllerConfirmPassword = TextEditingController();
@@ -90,6 +92,10 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
                         controller: widget.controllerPassword,
                         obscureText: true,
                         hintText: "Password"),
+                    TextFieldAuth(
+                        controller: widget.controllerPassword,
+                        obscureText: true,
+                        hintText: "Password confirmation"),
                     //no está registrat
                       Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25),

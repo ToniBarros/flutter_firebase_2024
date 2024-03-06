@@ -15,11 +15,11 @@ class BotoAuth extends StatelessWidget {
           color: const Color.fromARGB(255, 154, 69, 0),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 25 ),
-        child: Text("Login", style: 
-        TextStyle(
-          fontSize: 31,
-          color: Colors.orange[100],
-          fontWeight: FontWeight.bold,
+               child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.orange[100],
+            fontWeight: FontWeight.bold,
         ),
         ),
       ),
