@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_2024/auth/servei_auth.dart';
 import 'package:flutter_firebase_2024/components/boto_auth.dart';
 import 'package:flutter_firebase_2024/components/textfield_auth.dart';
 
@@ -6,9 +7,7 @@ class PaginaRegistre extends StatefulWidget {
   PaginaRegistre({super.key, required this.alFerClic});
       final void Function() alFerClic;
 
-  final controllerEmail = TextEditingController();
-  final TextEditingController controllerPassword = TextEditingController();
-  final TextEditingController controllerConfirmPassword = TextEditingController();
+
   @override
   State<PaginaRegistre> createState() => _PaginaRegistreState();
 }
@@ -17,6 +16,26 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
     void Registrarse() {
   }
 
+    final controllerEmail = TextEditingController();
+  final ServeiAuth serveiAuth = ServeiAuth();
+    final TextEditingController controllerPassword = TextEditingController();
+  final TextEditingController controllerConfirmPassword = TextEditingController();
+
+void ferRegistre(BuildContext context) async {
+  final ServeiAuth serveiAuth = ServeiAuth();
+  try {
+    await serveiAuth.RegistreEmailiPassword(controllerEmail.text, controllerPassword.text);
+  } catch (e) {
+    showDialog(
+      context: context, 
+      builder: (BuildContext context) =>
+         AlertDialog(
+          title: const Text("Error"),
+          content: Text(e.toString()),
+        ),
+    );
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,16 +103,16 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
                     ),
                     //textfield email
                     TextFieldAuth(
-                        controller: widget.controllerEmail,
+                        controller: controllerEmail,
                         obscureText: false,
                         hintText: "Email"),
                     //textfield password
                     TextFieldAuth(
-                        controller: widget.controllerPassword,
+                        controller: controllerPassword,
                         obscureText: true,
                         hintText: "Password"),
                     TextFieldAuth(
-                        controller: widget.controllerPassword,
+                        controller: controllerPassword,
                         obscureText: true,
                         hintText: "Password confirmation"),
                     //no está registrat
@@ -118,8 +137,10 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
                     SizedBox(
                       height: 10,),
                     //boto login
-                    BotoAuth(text: "Registra't", 
-                    onTap: Registrarse,
+                    BotoAuth(text: "Registre", 
+                    onTap : (){
+                      ferRegistre(context);
+                    }
                     ),
                   ],
                 ),

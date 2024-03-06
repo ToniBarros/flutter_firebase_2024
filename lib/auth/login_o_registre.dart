@@ -15,7 +15,6 @@ class _LoginORegistreState extends State<LoginORegistre> {
 
   void intercanviarPaginesLoginRegistre() 
   {
-    print("hola");
     setState(() {
       mostraPaginaLogin = !mostraPaginaLogin;
     });

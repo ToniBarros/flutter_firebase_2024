@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_2024/auth/servei_auth.dart';
 import 'package:flutter_firebase_2024/components/boto_auth.dart';
 import 'package:flutter_firebase_2024/components/textfield_auth.dart';
 
@@ -7,8 +8,6 @@ class PaginaLogin extends StatefulWidget {
 
     final void Function() alFerClic;
 
-  final controllerEmail = TextEditingController();
-  final TextEditingController controllerPassword = TextEditingController();
 
 
 
@@ -18,10 +17,23 @@ class PaginaLogin extends StatefulWidget {
 
 class _MyWidgetState extends State<PaginaLogin> {
   
-
-    void ferLogin() {
+  final controllerEmail = TextEditingController();
+  final TextEditingController controllerPassword = TextEditingController();
+void ferLogin(BuildContext context) async {
+  final ServeiAuth serveiAuth = ServeiAuth();
+  try {
+    await serveiAuth.loginEmailiPassword(controllerEmail.text, controllerPassword.text);
+  } catch (e) {
+    showDialog(
+      context: context, 
+      builder: (BuildContext context) =>
+         AlertDialog(
+          title: const Text("Error"),
+          content: Text(e.toString()),
+        ),
+    );
   }
-  
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,12 +101,12 @@ class _MyWidgetState extends State<PaginaLogin> {
                     ),
                     //textfield email
                     TextFieldAuth(
-                        controller: widget.controllerEmail,
+                        controller: controllerEmail,
                         obscureText: false,
                         hintText: "Email"),
                     //textfield password
                     TextFieldAuth(
-                        controller: widget.controllerPassword,
+                        controller: controllerPassword,
                         obscureText: true,
                         hintText: "Password"),
                     //no está registrat
@@ -123,7 +135,10 @@ class _MyWidgetState extends State<PaginaLogin> {
                       height: 10,),
                     //boto login
                     BotoAuth(text: "login", 
-                    onTap: ferLogin,
+                    onTap : (){
+                      print("hola");
+                      ferLogin(context);
+                    }
                     ),
                   ],
                 ),
