@@ -42,4 +42,3 @@ Vincular projecte local al projecte de firebase de la consola: flutterfire confi
   -flutter pub add firebase_auth
   -flutter pub add firestore_core
 */
- 

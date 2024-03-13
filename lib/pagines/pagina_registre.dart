@@ -5,37 +5,38 @@ import 'package:flutter_firebase_2024/components/textfield_auth.dart';
 
 class PaginaRegistre extends StatefulWidget {
   PaginaRegistre({super.key, required this.alFerClic});
-      final void Function() alFerClic;
-
+  final void Function() alFerClic;
 
   @override
   State<PaginaRegistre> createState() => _PaginaRegistreState();
 }
 
 class _PaginaRegistreState extends State<PaginaRegistre> {
-    void Registrarse() {
-  }
+  void Registrarse() {}
 
-    final controllerEmail = TextEditingController();
+  final controllerEmail = TextEditingController();
   final ServeiAuth serveiAuth = ServeiAuth();
-    final TextEditingController controllerPassword = TextEditingController();
-  final TextEditingController controllerConfirmPassword = TextEditingController();
+  final TextEditingController controllerPassword = TextEditingController();
+  final TextEditingController controllerPassword2 = TextEditingController();
+  final TextEditingController controllerConfirmPassword =
+      TextEditingController();
 
-void ferRegistre(BuildContext context) async {
-  final ServeiAuth serveiAuth = ServeiAuth();
-  try {
-    await serveiAuth.RegistreEmailiPassword(controllerEmail.text, controllerPassword.text);
-  } catch (e) {
-    showDialog(
-      context: context, 
-      builder: (BuildContext context) =>
-         AlertDialog(
+  void ferRegistre(BuildContext context) async {
+    final ServeiAuth serveiAuth = ServeiAuth();
+    try {
+      await serveiAuth.RegistreEmailiPassword(
+          controllerEmail.text, controllerPassword.text);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
           title: const Text("Error"),
           content: Text(e.toString()),
         ),
-    );
+      );
+    }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,11 +113,11 @@ void ferRegistre(BuildContext context) async {
                         obscureText: true,
                         hintText: "Password"),
                     TextFieldAuth(
-                        controller: controllerPassword,
+                        controller: controllerPassword2,
                         obscureText: true,
                         hintText: "Password confirmation"),
                     //no está registrat
-                      Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -125,29 +126,42 @@ void ferRegistre(BuildContext context) async {
                             onTap: () {
                               Navigator.pushNamed(context, '/registre');
                             },
-                            child: const Text("Registra't", style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue,
-                            ),),
+                            child: const Text(
+                              "Registra't",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                              ),
+                            ),
                           ),
-                          
                         ],
                       ),
                     ),
                     SizedBox(
-                      height: 10,),
-                    //boto login
-                    BotoAuth(text: "Registre", 
-                    onTap : (){
-                      ferRegistre(context);
-                    }
+                      height: 10,
                     ),
+                    //boto login
+                    BotoAuth(
+                        text: "Registre",
+                        onTap: () {
+                          if (controllerPassword.text ==
+                              controllerPassword2.text) {
+                            ferRegistre(context);
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text("Error"),
+                                content: Text("Las contraseñas no coinciden."),
+                              ),
+                            );
+                          }
+                        }),
                   ],
                 ),
               ),
             ),
           ),
-        )
-        );
+        ));
   }
 }
