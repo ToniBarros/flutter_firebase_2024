@@ -22,7 +22,7 @@ class _MyWidgetState extends State<PaginaLogin> {
 void ferLogin(BuildContext context) async {
   final ServeiAuth serveiAuth = ServeiAuth();
   try {
-    await serveiAuth.loginEmailiPassword(controllerEmail.text, controllerPassword.text);
+    await serveiAuth.loginAmbEmailIPassword(controllerEmail.text, controllerPassword.text);
   } catch (e) {
     showDialog(
       context: context, 

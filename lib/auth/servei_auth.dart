@@ -5,37 +5,57 @@ class ServeiAuth {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  //fer login
-  Future<UserCredential> loginEmailiPassword(String email, password) async {
-    print("hola");
-try {
-      UserCredential credencialUsuari = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return credencialUsuari;
-  } on FirebaseAuthException catch (e) {
-    throw Exception(e.code);
-  }
-  }
 
-  //fer registre
+  // Fer login
+  Future<UserCredential> loginAmbEmailIPassword(String email, password) async {
 
-  Future<UserCredential> RegistreEmailiPassword(String email, password) async {
     try {
-      UserCredential credencialUsuari = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      _firestore.collection("usuaris").doc(credencialUsuari.user!.uid).set({
-        "email": email,
+      UserCredential credencialUsuari = await _auth.signInWithEmailAndPassword(
+        email: email, 
+        password: password,
+      );
+
+      _firestore.collection("Usuaris").doc(credencialUsuari.user!.uid).set({
         "uid": credencialUsuari.user!.uid,
+        "email": email,
       });
 
       return credencialUsuari;
+
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
-  }
-  
-  //fer logout
-  Future<void> logout() async {
-    await _auth.signOut();
+    
   }
 
+  // Fer registre
+  Future<UserCredential> registreAmbEmailIPassword(String email, password) async {
 
+    try {
+      UserCredential credencialUsuari = await _auth.createUserWithEmailAndPassword(
+        email: email, 
+        password: password,
+      );
+
+      _firestore.collection("Usuaris").doc(credencialUsuari.user!.uid).set({
+        "uid": credencialUsuari.user!.uid,
+        "email": email,
+      });
+
+      return credencialUsuari;
+
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    }
+    
+  }
+
+  // Fer logout
+  Future<void> tancarSessio() async {
+    return await _auth.signOut();
+  }
+
+  User? getUsuariActual() {
+    return _auth.currentUser;
+  }
 }

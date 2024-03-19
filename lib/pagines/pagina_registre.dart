@@ -24,7 +24,7 @@ class _PaginaRegistreState extends State<PaginaRegistre> {
   void ferRegistre(BuildContext context) async {
     final ServeiAuth serveiAuth = ServeiAuth();
     try {
-      await serveiAuth.RegistreEmailiPassword(
+      await serveiAuth.registreAmbEmailIPassword(
           controllerEmail.text, controllerPassword.text);
     } catch (e) {
       showDialog(
