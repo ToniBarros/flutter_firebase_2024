@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_2024/auth/servei_auth.dart';
 import 'package:flutter_firebase_2024/chat/servei_chat.dart';
+import 'package:flutter_firebase_2024/components/item_usuari.dart';
+import 'package:flutter_firebase_2024/pagines/pagina_chat.dart';
 
 class PaginaInici extends StatelessWidget {
   PaginaInici({super.key});
@@ -36,7 +38,7 @@ class PaginaInici extends StatelessWidget {
       stream: _serveiChat.getUsuaris(), 
       builder: (context, snapshot) {
 
-        // Mirar si hi ha errror.
+        // Mirar si hi ha error.
         if (snapshot.hasError) {
 
           return const Text("Error");
@@ -64,6 +66,8 @@ class PaginaInici extends StatelessWidget {
 
       return Container();
     }
-    return Text(dadesUsuari["email"]);
+    return ItemUsuari(emailUsuari: dadesUsuari["email"], onTap:(){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => PaginaChat(),),);
+    },);
   }
 }
