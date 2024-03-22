@@ -18,6 +18,6 @@ Map<String, dynamic> toMap() {
     "idReceptor": idReceptor,
     "missatge": missatge,
     "timestamp": timestamp,
-  };
-}
+    };
+  }
 }

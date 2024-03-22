@@ -8,9 +8,6 @@ class PaginaLogin extends StatefulWidget {
 
     final void Function() alFerClic;
 
-
-
-
   @override
   State<PaginaLogin> createState() => _MyWidgetState();
 }
