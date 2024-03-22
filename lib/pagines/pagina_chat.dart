@@ -1,5 +1,11 @@
+import 'dart:html';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_firebase_2024/auth/servei_auth.dart';
 import 'package:flutter_firebase_2024/chat/servei_chat.dart';
+import 'package:flutter_firebase_2024/components/bombolla_missatge.dart';
 
 class PaginaChat extends StatefulWidget {
   final String emailAmbQuiParlem;
@@ -15,6 +21,7 @@ class _PaginaChatState extends State<PaginaChat> {
 
     final TextEditingController controllerMissatge = TextEditingController();
     final ServeiChat _serveiChat = ServeiChat();
+    final ServeiAuth _serveiAuth = ServeiAuth();
 
 
   void enviarMissatge() {
@@ -24,6 +31,24 @@ class _PaginaChatState extends State<PaginaChat> {
 
       controllerMissatge.clear();
     }
+  }
+
+  Widget _construirItemMissatge(DocumentSnapshot document) {
+    final dades = document.data() as Map<String, dynamic>;
+
+//Saber si el mostrem a l'esquerra o a la dreta
+bool esUsuariActual = dades["idAutor"] == _serveiAuth.getUsuariActual()!.uid;
+
+var alineament = esUsuariActual ? Alignment.centerRight : Alignment.centerLeft;
+var colorBombolla = esUsuariActual ? Colors.green[200] : Colors.amber[200];
+
+    return Container(
+      alignment: alineament,
+      child: BombollaMissatge(
+        colorBombolla: colorBombolla ?? Colors.black,
+        missatge: dades["missatge"],
+      ),
+    );
   }
 
   @override
@@ -44,7 +69,30 @@ class _PaginaChatState extends State<PaginaChat> {
   }
 
   Widget _construirLlistaMissatges() {
-    return Container();
+    
+    String idUsuariActual = _serveiAuth.getUsuariActual()!.uid;
+
+    return StreamBuilder(
+      stream: _serveiChat.getMissatges(widget.idReceptor, idUsuariActual),
+      builder: (context, snapshot){
+        //Cas que hi hagi error
+        if(snapshot.hasError){
+          return const Text("Error");
+        }
+
+        //Estar encara carregant
+        if(snapshot.connectionState == ConnectionState.waiting){
+          return const Text("Carregant dades...");
+        }
+
+        //Retornar dades (ListView)
+        return ListView(
+          children: snapshot.data!.docs.map((Document) => _construirItemMissatge(Document)).toList(),
+        );
+      },
+    
+    );
+    
   }
 
   Widget _construirZonaInputUsuari() {

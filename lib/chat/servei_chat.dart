@@ -40,4 +40,17 @@ class ServeiChat {
     //Guardar el missatge a la sala de xat
     await _firestore.collection("SalesXat").doc(idSalaXat).collection("Missatges").add(nouMissatge.toMap());
     }
+
+  Stream<QuerySnapshot> getMissatges(String idReceptor, idUsuariActual) {
+//volem trobar la salachat formada per l'id dels dos usuaris
+// (idusuari i idreceptor)
+
+//Creem l'id de la sala de xat com quan hi guardem missatges
+    List<String> idsUsuaris = [idUsuariActual, idReceptor];
+    idsUsuaris.sort();
+    String idSalaXat = idsUsuaris.join("_");
+
+    return _firestore.collection("SalesXat").doc(idSalaXat).collection("Missatges").orderBy("timestamp", descending: false).snapshots();
+
+  }
   }
